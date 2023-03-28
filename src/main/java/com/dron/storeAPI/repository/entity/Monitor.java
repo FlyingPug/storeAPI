@@ -1,13 +1,21 @@
 package com.dron.storeAPI.repository.entity;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "monitors")
-@Data
-public class Monitor
-{
-    private int diagonal;
+@DiscriminatorValue("monitor")
+@Getter
+@Setter
+public class Monitor extends Product {
+    private int diagonal;  // Диагональ экрана
+
+    @Override
+    public void updateProduct(Product monitor) {
+        super.updateProduct(monitor);
+        if (monitor instanceof Monitor)
+            this.diagonal = ((Monitor) monitor).getDiagonal();
+    }
 }

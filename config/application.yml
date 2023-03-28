@@ -1,0 +1,6 @@
+server:
+  port: 8081
+database:
+  url: org.h2.Driver
+  username: h2
+  password: h2

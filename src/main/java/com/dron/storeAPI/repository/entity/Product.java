@@ -1,23 +1,35 @@
 package com.dron.storeAPI.repository.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /*
- * В данном случае выбрал стратегию единой таблицы, т.к это должно быть куда лучше, чем иметь таблицу на каждый товар
+ * В данном случае выбрал стратегию единой таблицы, т.к это должно быть куда эффективней, чем иметь таблицу на каждый товар
  */
 
 @Entity
 @Table(name = "products")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Data
-public class Product
-{
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@Getter
+@Setter
+public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long serialNumber;
-    private Long price;
-    private String manufacturer;
-    private int quantity;
+    @Column(name = "type", insertable = false, updatable = false)
+    protected String type;
+    private Long serialNumber; // серийный номер
+    private Long price;  // цена
+    private String manufacturer;  // производитель
+    private int quantity;  // количество товара
+
+    public void updateProduct(Product product) {
+        this.serialNumber = product.serialNumber;
+        this.price = product.price;
+        this.manufacturer = product.manufacturer;
+        this.quantity = product.quantity;
+    }
 }

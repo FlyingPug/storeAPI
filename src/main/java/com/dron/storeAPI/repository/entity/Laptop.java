@@ -1,13 +1,21 @@
 package com.dron.storeAPI.repository.entity;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "laptops")
-@Data
-public class Laptop extends Product
-{
-    private int screenSize;
+@DiscriminatorValue("laptop")
+@Getter
+@Setter
+public class Laptop extends Product {
+    private int size; // Размер ноутбука
+
+    @Override
+    public void updateProduct(Product laptop) {
+        super.updateProduct(laptop);
+        if (laptop instanceof Laptop)
+            this.size = ((Laptop) laptop).getSize();
+    }
 }
