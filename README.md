@@ -138,7 +138,7 @@ DELETE http://localhost:8081/products/1
 
 Обновление товара по id
 
-PUT http://localhost:8081/products/2
+PATCH http://localhost:8081/products/2
 BODY:
 ```JSON
 {

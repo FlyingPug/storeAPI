@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     // обновление товара по id
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
         Product newProduct = productService.updateProduct(id, productDto.toProduct());
         return ResponseEntity.ok(newProduct);
